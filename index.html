@@ -6,105 +6,26 @@
     <style>
         table td{border-bottom:1px solid #ccc;padding:4px;margin:0}
     </style>
+    <title>Fill Text JQuery</title>
 </head>
 <body>
 
 
 <div>
     <form>
-        <label for="user_id">User Id:</label>
-        <input type="text" id="user_id"><br>
-        <label for="fname">First Name:</label>
-        <input type="text" id="fname"><br>
-        <label for="lanme">Last Name:</label>
-        <input type="text" id="lname"><br>
-        <label for="bday">Birthday:</label>
-        <input type="date" id="bday"><br>
-        <input type="button" value="Accept" onclick="apply()">
+        <label for="num_rec">Number of records:</label>
+        <input type="text" id="num_rec"><br>
+        <input type="button" value="Update" onclick="update_data()">
     </form>
-    <div id="output"></div>
     <table id="records" cellspacing="0"></table>
 </div>
 
 <script>
-    function check_user_id_format() {
-        var uid = document.getElementById("user_id").value;
-        var error_string = "";
-
-        if (uid.length < 8 || uid.length > 12) {
-            return false;
-        }
-
-        var has_lower_case = false;
-
-        for (var i = 0; i < uid.length; ++i) {
-            if (uid.charAt(i) == uid.charAt(i).toLowerCase()) {
-                has_lower_case = true;
-                break;
-            }
-        }
-
-        if (!has_lower_case) {
-            return false;
-        }
-
-        var has_upper_case = false;
-
-        for (var i = 0; i < uid.length; ++i) {
-            if (uid.charAt(i) == uid.charAt(i).toUpperCase()) {
-                has_upper_case = true;
-                break;
-            }
-        }
-
-        if (!has_upper_case) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function dateDiff(date) {
-        var age_ms = Date.now() - date;
-        return age_ms / 1000 / 60 / 60 / 24;
-    }
-
-    function apply() {
-        document.getElementById("output").innerHTML = "";
-
-        if (!check_user_id_format()) {
-            document.getElementById("output").innerHTML += "Invalid UserID<br>";
-        }
-
-        var fname = document.getElementById("fname").value;
-
-        if (fname.length == 0) {
-            document.getElementById("output").innerHTML += "Invalid fname<br>";
-        }
-
-        var lname = document.getElementById("lname").value;
-
-        if (lname.length == 0) {
-            document.getElementById("output").innerHTML += "Invalid lname<br>";
-        }
-
-        var bday = document.getElementById("bday").value;
-
-        if (bday.length == 0) {
-            document.getElementById("output").innerHTML += "Invalid Birth Day<br>";
-        } else {
-            age_in_days = dateDiff(new Date(bday));
-
-            if (age_in_days < 365 * 18) {
-                document.getElementById("output").innerHTML += "You are probably not old enough to take this class!<br>";
-            }
-        }
-    }
-
-    (function() {
-        var url = "http://www.filltext.com/?callback=?";
+    function update_data() {
+        const record_count = parseInt(document.getElementById("num_rec").value);
+        const url = "http://www.filltext.com/?callback=?";
         $.getJSON( url, {
-            'rows': 5,
+            'rows': record_count,
             'fname': '{firstName}',
             'lname': '{lastName}',
             'tel': '{phone|format}',
@@ -118,8 +39,7 @@
                     $("<tr/>").html(html).appendTo("#records");
                 });
             });
-    })();
-
+    }
 </script>
 
 </body>
