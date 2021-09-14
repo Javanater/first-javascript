@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        table td{border-bottom:1px solid #ccc;padding:4px;margin:0}
+    </style>
+</head>
 <body>
 
 
@@ -17,17 +23,10 @@
         <input type="button" value="Accept" onclick="apply()">
     </form>
     <div id="output"></div>
-    <div id="xs"></div>
+    <table id="records" cellspacing="0"></table>
 </div>
 
 <script>
-    // put your JavaScript code to read HTML inputs
-    // and validate inputs here using if statements
-    // and document.getElementById().innerHTML to display results
-    // write your JS functions here
-    // write your JS Loop For here to print the Xs
-    // use something like document.write(str.padStart(i,"x") + "<br>");
-
     function check_user_id_format() {
         var uid = document.getElementById("user_id").value;
         var error_string = "";
@@ -102,14 +101,23 @@
         }
     }
 
-    (function () {
-        var s_str = "";
-
-        for (var i = 0; i < 20; ++i) {
-            s_str += "".padStart(i, "x") + "<br>";
-        }
-
-        document.getElementById("xs").innerHTML = s_str;
+    (function() {
+        var url = "http://www.filltext.com/?callback=?";
+        $.getJSON( url, {
+            'rows': 5,
+            'fname': '{firstName}',
+            'lname': '{lastName}',
+            'tel': '{phone|format}',
+        })
+            .done(function( data ) {
+                $.each( data, function( i, item ) {
+                    var html =
+                        "<td>" + item.fname + "</td>" +
+                        "<td>" + item.lname + "</td>" +
+                        "<td>" + item.tel + "</td>";
+                    $("<tr/>").html(html).appendTo("#records");
+                });
+            });
     })();
 
 </script>
