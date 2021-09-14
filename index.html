@@ -4,115 +4,115 @@
 <body>
 
 
-    <div>
-        <form>
-            <label for="user_id">User Id:</label>
-            <input type="text" id="user_id"><br>
-            <label for="fname">First Name:</label>
-            <input type="text" id="fname"><br>
-            <label for="lanme">Last Name:</label>
-            <input type="text" id="lname"><br>
-            <label for="bday">Birthday:</label>
-            <input type="date" id="bday"><br>
-            <input type="button" value="Accept" onclick="apply()">
-        </form>
-        <div id="output"></div>
-        <div id="xs"></div>
-    </div>
+<div>
+    <form>
+        <label for="user_id">User Id:</label>
+        <input type="text" id="user_id"><br>
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname"><br>
+        <label for="lanme">Last Name:</label>
+        <input type="text" id="lname"><br>
+        <label for="bday">Birthday:</label>
+        <input type="date" id="bday"><br>
+        <input type="button" value="Accept" onclick="apply()">
+    </form>
+    <div id="output"></div>
+    <div id="xs"></div>
+</div>
 
-    <script>
-        // put your JavaScript code to read HTML inputs
-        // and validate inputs here using if statements
-        // and document.getElementById().innerHTML to display results
-        // write your JS functions here
-        // write your JS Loop For here to print the Xs
-        // use something like document.write(str.padStart(i,"x") + "<br>");
+<script>
+    // put your JavaScript code to read HTML inputs
+    // and validate inputs here using if statements
+    // and document.getElementById().innerHTML to display results
+    // write your JS functions here
+    // write your JS Loop For here to print the Xs
+    // use something like document.write(str.padStart(i,"x") + "<br>");
 
-        function check_user_id_format() {
-            var uid = document.getElementById("user_id").value;
-            var error_string = "";
+    function check_user_id_format() {
+        var uid = document.getElementById("user_id").value;
+        var error_string = "";
 
-            if (uid.length < 8 || uid.length > 12) {
-                return false;
-            }
-
-            var has_lower_case = false;
-
-            for (var i = 0; i < uid.length; ++i) {
-                if (uid.charAt(i) == uid.charAt(i).toLowerCase()) {
-                    has_lower_case = true;
-                    break;
-                }
-            }
-
-            if (!has_lower_case) {
-                return false;
-            }
-
-            var has_upper_case = false;
-
-            for (var i = 0; i < uid.length; ++i) {
-                if (uid.charAt(i) == uid.charAt(i).toUpperCase()) {
-                    has_upper_case = true;
-                    break;
-                }
-            }
-
-            if (!has_upper_case) {
-                return false;
-            }
-
-            return true;
+        if (uid.length < 8 || uid.length > 12) {
+            return false;
         }
 
-        function dateDiff(date) {
-            var age_ms = Date.now() - date;
-            return age_ms / 1000 / 60 / 60 / 24;
-        }
+        var has_lower_case = false;
 
-        function apply() {
-            document.getElementById("output").innerHTML = "";
-
-            if (!check_user_id_format()) {
-                document.getElementById("output").innerHTML += "Invalid UserID<br>";
-            }
-
-            var fname = document.getElementById("fname").value;
-
-            if (fname.length == 0) {
-                document.getElementById("output").innerHTML += "Invalid fname<br>";
-            }
-
-            var lname = document.getElementById("lname").value;
-
-            if (lname.length == 0) {
-                document.getElementById("output").innerHTML += "Invalid lname<br>";
-            }
-
-            var bday = document.getElementById("bday").value;
-
-            if (bday.length == 0) {
-                document.getElementById("output").innerHTML += "Invalid Birth Day<br>";
-            } else {
-                age_in_days = dateDiff(new Date(bday));
-
-                if (age_in_days < 365 * 18) {
-                    document.getElementById("output").innerHTML += "You are probably not old enough to take this class!<br>";
-                }
+        for (var i = 0; i < uid.length; ++i) {
+            if (uid.charAt(i) == uid.charAt(i).toLowerCase()) {
+                has_lower_case = true;
+                break;
             }
         }
 
-        (function () {
-            var s_str = "";
+        if (!has_lower_case) {
+            return false;
+        }
 
-            for (var i = 0; i < 20; ++i) {
-                s_str += "".padStart(i, "x") + "<br>";
+        var has_upper_case = false;
+
+        for (var i = 0; i < uid.length; ++i) {
+            if (uid.charAt(i) == uid.charAt(i).toUpperCase()) {
+                has_upper_case = true;
+                break;
             }
+        }
 
-            document.getElementById("xs").innerHTML = s_str;
-        })();
+        if (!has_upper_case) {
+            return false;
+        }
 
-    </script>
+        return true;
+    }
+
+    function dateDiff(date) {
+        var age_ms = Date.now() - date;
+        return age_ms / 1000 / 60 / 60 / 24;
+    }
+
+    function apply() {
+        document.getElementById("output").innerHTML = "";
+
+        if (!check_user_id_format()) {
+            document.getElementById("output").innerHTML += "Invalid UserID<br>";
+        }
+
+        var fname = document.getElementById("fname").value;
+
+        if (fname.length == 0) {
+            document.getElementById("output").innerHTML += "Invalid fname<br>";
+        }
+
+        var lname = document.getElementById("lname").value;
+
+        if (lname.length == 0) {
+            document.getElementById("output").innerHTML += "Invalid lname<br>";
+        }
+
+        var bday = document.getElementById("bday").value;
+
+        if (bday.length == 0) {
+            document.getElementById("output").innerHTML += "Invalid Birth Day<br>";
+        } else {
+            age_in_days = dateDiff(new Date(bday));
+
+            if (age_in_days < 365 * 18) {
+                document.getElementById("output").innerHTML += "You are probably not old enough to take this class!<br>";
+            }
+        }
+    }
+
+    (function () {
+        var s_str = "";
+
+        for (var i = 0; i < 20; ++i) {
+            s_str += "".padStart(i, "x") + "<br>";
+        }
+
+        document.getElementById("xs").innerHTML = s_str;
+    })();
+
+</script>
 
 </body>
 
